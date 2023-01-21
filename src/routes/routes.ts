@@ -18,7 +18,7 @@ export default function Routes(app: Express) {
    // }))
    //
 
-   
+
    app.get("/", function (req, res) {
       return res.send("AAA")
    })

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon src/index.ts"
+    "dev": "npm run build && nodemon src/dist/index.js",
+    "dev-ts": "nodemon src/index.ts",
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
