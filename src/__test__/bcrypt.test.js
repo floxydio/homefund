@@ -1,5 +1,7 @@
-describe("test add", function () {
-  it("Should be A", () => {
-    expect("A").toBe("A");
+describe("Test Bcrypt", () => {
+  it("Should Be True", () => {
+    let data = "abc";
+    let result = bcrypt.compareSync(data, "");
+    expect("abc", "");
   });
 });

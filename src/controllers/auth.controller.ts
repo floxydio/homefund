@@ -59,8 +59,8 @@ res.status(201).send({
   
 }
 
-export function Logout(req: Request, res: Response) { }
+export async function Logout(req: Request, res: Response) { }
 
-export function EditProfile(req: Request, res: Response) { }
+export async function EditProfile(req: Request, res: Response) { }
 
-export function ProfileCheck(req: Request, res: Response) { }
+export async function ProfileCheck(req: Request, res: Response) { }
