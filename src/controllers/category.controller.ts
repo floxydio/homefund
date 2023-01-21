@@ -5,9 +5,7 @@ import { CategoryModel } from "../models/category.model";
 export async function getCategory(req: Request, res: Response){
     const categoryRepository = AppDataSource.getRepository(CategoryModel)
     
-    const categoryData = categoryRepository.find({
-       relations: ['category']
-    })
+    const categoryData = await categoryRepository.find()
 
     try {
         res.status(200).send({
