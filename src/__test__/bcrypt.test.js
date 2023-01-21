@@ -1,7 +1,9 @@
+const bcrpyt = require("bcrypt");
+
 describe("Test Bcrypt", () => {
   it("Should Be True", () => {
     let data = "abc";
-    let result = bcrypt.compareSync(data, "");
+    let result = bcrpyt.compareSync(data, "");
     expect("abc", "");
   });
 });
