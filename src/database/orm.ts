@@ -1,7 +1,10 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv"
 import { UserModel } from "../models/users.model";
-
+import { NewsSliderModel } from "../models/news_slider.model";
+import { CategoryModel } from "../models/category.model";
+import { VirtualAccountModel } from "../models/virtual_account.model";
+import { SettingModel } from "../models/setting.model";
 
 dotenv.config()
 
@@ -13,7 +16,7 @@ export const AppDataSource = new DataSource({
   password: `${process.env.DB_PASSWORD}`,
   database: `${process.env.DB_NAME}`,
   synchronize: false, // False if already migration
-  entities: [UserModel],
+  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel],
   logging: true,
 });
 

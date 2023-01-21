@@ -1,7 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm"
 
-@Entity("virtual_account")
-export class VirtualAccountModel{
+@Entity("news_slider")
+
+export class NewsSliderModel {
     @PrimaryGeneratedColumn()
     id?: number
 
@@ -9,10 +10,10 @@ export class VirtualAccountModel{
     name?: string
 
     @Column()
-    icon?: string
+    detail?: string
 
     @Column()
-    vat?: number
+    image?: string
 
     @Column()
     status?: number

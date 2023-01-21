@@ -4,11 +4,19 @@ import cors from "cors";
 import { graphqlHTTP } from "express-graphql"
 // import { schemaGraphQL } from '../graphql/schema';
 import { AuthController } from "../controllers/auth.controller"
+import { CategoryController } from '../controllers/category.controller';
+import { SettingController } from '../controllers/setting.controller';
+import { VirtualAccountController } from '../controllers/virtual_account.controller';
+import { NewsSliderController } from '../controllers/news_slider.controller';
 
 
 
 export default function Routes(app: Express) {
    const authController = new AuthController()
+   const categoryController = new CategoryController()
+   const settingController = new SettingController()
+   const virtualAccountController = new VirtualAccountController()
+   const newsSliderController = new NewsSliderController()
 
 
    // Middleware
@@ -26,14 +34,14 @@ export default function Routes(app: Express) {
       return res.send("Not Found")
    })
 
+   app.get("/api/category", categoryController.getCategory)
+   app.get("/api/setting", settingController.getSetting)
+   app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
+   app.get("/api/news-slider", newsSliderController.getNewsSlider)
+
    app.post("/api/sign-up", authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
 
-
-
-
-   // app.get("/api/category", getCategory)
-   // app.get("/api/virtualaccount", getVirtualAccount)
 
 
 }
