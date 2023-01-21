@@ -6,8 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 // import { schemaGraphQL } from '../graphql/schema';
-// import authController from "../controllers/auth.controller"
+const auth_controller_1 = require("../controllers/auth.controller");
 function Routes(app) {
+    const authController = new auth_controller_1.AuthController();
     // Middleware
     app.use(body_parser_1.default.urlencoded({ extended: true }));
     app.use((0, cors_1.default)());
@@ -17,10 +18,11 @@ function Routes(app) {
     // }))
     //
     app.get("/", function (req, res) {
-        return res.send("AAA");
+        return res.send("Not Found");
     });
+    app.post("/api/sign-up", authController.SignUp);
+    app.post("/api/sign-in", authController.SignIn);
     // app.get("/api/category", getCategory)
     // app.get("/api/virtualaccount", getVirtualAccount)
-    // app.post("/api/sign-in", authController)
 }
 exports.default = Routes;

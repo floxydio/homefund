@@ -61,7 +61,7 @@ class AuthController {
                 username: req.body.username,
                 password: hash,
             });
-            res.status(201).send({
+            return res.status(201).send({
                 status: 201,
                 data: resultData,
                 message: "Succesfully Create Account",

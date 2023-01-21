@@ -44,18 +44,21 @@ export class AuthController {
   }
 
   public async SignUp(req: Request, res: Response) {
+
+    const user = new UserModel() // -> Refactor : Tambah Ini
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
-
     const userRepository = AppDataSource.getRepository(UserModel)
-    const resultData = userRepository.create({
-      name: req.body.name,
-      username: req.body.username,
-      password: hash,
-    });
 
-    res.status(201).send({
+    // Refactor -> Dibuat Jadi seperti ini aja, better pake save dibanding create
+    user.name = req.body.name
+    user.password = hash
+    user.username = req.body.username
+    const resultData = userRepository.save(user);
+    // =======================
+
+    return res.status(201).send({
       status: 201,
       data: resultData,
       message: "Succesfully Create Account",
