@@ -1,7 +1,7 @@
-import { GraphQLSchema } from "graphql"
-import { queryGraph } from "./query"
+// import { GraphQLSchema } from "graphql"
+// import { queryGraph } from "./query"
 
-export const schemaGraphQL = new GraphQLSchema({
-   query: queryGraph,
-   
-})
+// export const schemaGraphQL = new GraphQLSchema({
+//    query: queryGraph,
+
+// })
