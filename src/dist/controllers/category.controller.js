@@ -9,25 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCategory = void 0;
+exports.CategoryController = void 0;
 const orm_1 = require("../database/orm");
 const category_model_1 = require("../models/category.model");
-function getCategory(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const categoryRepository = orm_1.AppDataSource.getRepository(category_model_1.CategoryModel);
-        const categoryData = yield categoryRepository.find();
-        try {
-            res.status(200).send({
-                data: categoryData,
-                message: 'Berhasil Mendapatkan List Category'
-            });
-        }
-        catch (err) {
-            res.status(400).send({
-                error: err,
-                message: 'Something Went Wrong'
-            });
-        }
-    });
+class CategoryController {
+    getCategory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const categoryRepository = orm_1.AppDataSource.getRepository(category_model_1.CategoryModel);
+            const categoryData = yield categoryRepository.find();
+            try {
+                res.status(200).send({
+                    data: categoryData,
+                    message: 'Succefully Get List Category'
+                });
+            }
+            catch (err) {
+                res.status(400).send({
+                    error: err,
+                    message: 'Something Went Wrong'
+                });
+            }
+        });
+    }
 }
-exports.getCategory = getCategory;
+exports.CategoryController = CategoryController;

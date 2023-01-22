@@ -9,31 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.SettingModel = void 0;
 const typeorm_1 = require("typeorm");
-let UserModel = class UserModel extends typeorm_1.BaseEntity {
+let SettingModel = class SettingModel {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserModel.prototype, "id", void 0);
+], SettingModel.prototype, "maintenance_status", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], UserModel.prototype, "username", void 0);
+], SettingModel.prototype, "maintenance_note", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserModel.prototype, "password", void 0);
+    __metadata("design:type", Number)
+], SettingModel.prototype, "fee", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: "profile.png" }),
-    __metadata("design:type", String)
-], UserModel.prototype, "profile_image", void 0);
-UserModel = __decorate([
-    (0, typeorm_1.Entity)("users")
-], UserModel);
-exports.UserModel = UserModel;
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], SettingModel.prototype, "version_app", void 0);
+SettingModel = __decorate([
+    (0, typeorm_1.Entity)("setting")
+], SettingModel);
+exports.SettingModel = SettingModel;

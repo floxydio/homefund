@@ -34,6 +34,6 @@ __decorate([
     __metadata("design:type", Number)
 ], VirtualAccountModel.prototype, "status", void 0);
 VirtualAccountModel = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)("virtual_account")
 ], VirtualAccountModel);
 exports.VirtualAccountModel = VirtualAccountModel;

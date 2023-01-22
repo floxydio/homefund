@@ -9,31 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.NewsSliderModel = void 0;
 const typeorm_1 = require("typeorm");
-let UserModel = class UserModel extends typeorm_1.BaseEntity {
+let NewsSliderModel = class NewsSliderModel {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserModel.prototype, "id", void 0);
+], NewsSliderModel.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], UserModel.prototype, "username", void 0);
+], NewsSliderModel.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "password", void 0);
+], NewsSliderModel.prototype, "detail", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: "profile.png" }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "profile_image", void 0);
-UserModel = __decorate([
-    (0, typeorm_1.Entity)("users")
-], UserModel);
-exports.UserModel = UserModel;
+], NewsSliderModel.prototype, "image", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], NewsSliderModel.prototype, "status", void 0);
+NewsSliderModel = __decorate([
+    (0, typeorm_1.Entity)("news_slider")
+], NewsSliderModel);
+exports.NewsSliderModel = NewsSliderModel;

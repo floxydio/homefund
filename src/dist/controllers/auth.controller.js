@@ -52,15 +52,17 @@ class AuthController {
     }
     SignUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = new users_model_1.UserModel(); // -> Refactor : Tambah Ini
             const saltRounds = 10;
             const salt = bcrypt_1.default.genSaltSync(saltRounds);
             const hash = bcrypt_1.default.hashSync(req.body.password, salt);
             const userRepository = orm_1.AppDataSource.getRepository(users_model_1.UserModel);
-            const resultData = userRepository.create({
-                name: req.body.name,
-                username: req.body.username,
-                password: hash,
-            });
+            // Refactor -> Dibuat Jadi seperti ini aja, better pake save dibanding create
+            user.name = req.body.name;
+            user.password = hash;
+            user.username = req.body.username;
+            const resultData = userRepository.save(user);
+            // =======================
             return res.status(201).send({
                 status: 201,
                 data: resultData,

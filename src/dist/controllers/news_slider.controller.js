@@ -9,27 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VirtualAccountController = void 0;
+exports.NewsSliderController = void 0;
 const orm_1 = require("../database/orm");
-const virtual_account_model_1 = require("../models/virtual_account.model");
-class VirtualAccountController {
-    getVirtualAccount(req, res) {
+const news_slider_model_1 = require("../models/news_slider.model");
+class NewsSliderController {
+    getNewsSlider(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const virtualAccountRepository = orm_1.AppDataSource.getRepository(virtual_account_model_1.VirtualAccountModel);
-            const virtualAccountData = yield virtualAccountRepository.find();
+            const newsSliderRepository = orm_1.AppDataSource.getRepository(news_slider_model_1.NewsSliderModel);
+            const newsSliderData = yield newsSliderRepository.find();
             try {
                 res.status(200).send({
-                    data: virtualAccountData,
-                    message: "Successfully Get List Virtual Account"
+                    status: 200,
+                    data: newsSliderData,
+                    message: "Successfully Get List News"
                 });
             }
             catch (err) {
                 res.status(400).send({
+                    status: 400,
                     error: err,
-                    message: 'Something Went Wrong'
+                    message: "Something Went Wrong"
                 });
             }
         });
     }
 }
-exports.VirtualAccountController = VirtualAccountController;
+exports.NewsSliderController = NewsSliderController;

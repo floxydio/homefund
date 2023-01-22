@@ -9,27 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VirtualAccountController = void 0;
+exports.SettingController = void 0;
+const setting_model_1 = require("../models/setting.model");
 const orm_1 = require("../database/orm");
-const virtual_account_model_1 = require("../models/virtual_account.model");
-class VirtualAccountController {
-    getVirtualAccount(req, res) {
+class SettingController {
+    getSetting(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const virtualAccountRepository = orm_1.AppDataSource.getRepository(virtual_account_model_1.VirtualAccountModel);
-            const virtualAccountData = yield virtualAccountRepository.find();
+            const settingRepository = orm_1.AppDataSource.getRepository(setting_model_1.SettingModel);
+            const settingData = yield settingRepository.find();
             try {
                 res.status(200).send({
-                    data: virtualAccountData,
-                    message: "Successfully Get List Virtual Account"
+                    status: 200,
+                    data: settingData,
+                    message: "Successfully Get Data Setting"
                 });
             }
             catch (err) {
                 res.status(400).send({
                     error: err,
-                    message: 'Something Went Wrong'
+                    message: "Something Went Wrong"
                 });
             }
         });
     }
 }
-exports.VirtualAccountController = VirtualAccountController;
+exports.SettingController = SettingController;

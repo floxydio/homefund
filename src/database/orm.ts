@@ -5,6 +5,7 @@ import { NewsSliderModel } from "../models/news_slider.model";
 import { CategoryModel } from "../models/category.model";
 import { VirtualAccountModel } from "../models/virtual_account.model";
 import { SettingModel } from "../models/setting.model";
+import { HistoryModel } from "../models/history_qrscanner";
 
 dotenv.config()
 
@@ -15,8 +16,8 @@ export const AppDataSource = new DataSource({
   username: `${process.env.DB_USERNAME}`,
   password: `${process.env.DB_PASSWORD}`,
   database: `${process.env.DB_NAME}`,
-  synchronize: false, // False if already migration
-  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel],
+  synchronize: true, // False if already migration
+  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel, HistoryModel],
   logging: true,
 });
 

@@ -9,31 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.HistoryModel = void 0;
 const typeorm_1 = require("typeorm");
-let UserModel = class UserModel extends typeorm_1.BaseEntity {
+let HistoryModel = class HistoryModel {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserModel.prototype, "id", void 0);
+], HistoryModel.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], HistoryModel.prototype, "userid", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserModel.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], UserModel.prototype, "username", void 0);
+], HistoryModel.prototype, "result", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], UserModel.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: "profile.png" }),
-    __metadata("design:type", String)
-], UserModel.prototype, "profile_image", void 0);
-UserModel = __decorate([
-    (0, typeorm_1.Entity)("users")
-], UserModel);
-exports.UserModel = UserModel;
+    __metadata("design:type", typeorm_1.Timestamp)
+], HistoryModel.prototype, "createdate", void 0);
+HistoryModel = __decorate([
+    (0, typeorm_1.Entity)("history_qrscanner")
+], HistoryModel);
+exports.HistoryModel = HistoryModel;

@@ -21,7 +21,11 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], CategoryModel.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CategoryModel.prototype, "icon", void 0);
 CategoryModel = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)("category")
 ], CategoryModel);
 exports.CategoryModel = CategoryModel;
