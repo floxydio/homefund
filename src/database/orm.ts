@@ -5,7 +5,7 @@ import { NewsSliderModel } from "../models/news_slider.model";
 import { CategoryModel } from "../models/category.model";
 import { VirtualAccountModel } from "../models/virtual_account.model";
 import { SettingModel } from "../models/setting.model";
-import { HistoryModel } from "../models/history_qrscanner";
+import { HistoryModel } from "../models/history_qrscanner.model";
 
 dotenv.config()
 
