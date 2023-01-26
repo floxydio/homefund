@@ -22,4 +22,19 @@ export class CategoryController {
         }
     
     }
+
+    public async postCategory(req: Request, res: Response){
+        const category = new CategoryModel()
+        const categoryRepository = AppDataSource.getRepository(CategoryModel)
+
+        category.category = req.body.name
+        category.icon = req.file?.fieldname as string
+        const resultData = categoryRepository.save(category)
+
+        return res.status(201).send({
+            status: 201,
+            data: resultData,
+            message: "Succefully Create Category"
+        })
+    }
 }

@@ -8,10 +8,25 @@ import { CategoryController } from '../controllers/category.controller';
 import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
+import multer, { Multer } from 'multer';
 
 
 
 export default function Routes(app: Express) {
+
+   const categoryStorage =  multer.diskStorage({
+      destination: (req, file, cb) => {
+         cb(null, 'storage/category')
+      },
+      filename: (req, file,cb) => {
+         cb(null, file.fieldname + Date.now())
+      } 
+   })
+
+   const uploadCategory = multer({
+      storage: categoryStorage
+   })
+
    const authController = new AuthController()
    const categoryController = new CategoryController()
    const settingController = new SettingController()
@@ -34,7 +49,7 @@ export default function Routes(app: Express) {
       return res.send("Not Found")
    })
 
-   app.get("/api/category", categoryController.getCategory)
+   app.get("/api/category", uploadCategory.single('icon'),categoryController.getCategory)
    app.get("/api/setting", settingController.getSetting)
    app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
    app.get("/api/news-slider", newsSliderController.getNewsSlider)
