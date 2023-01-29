@@ -4,11 +4,11 @@ import { VirtualAccountModel } from "../models/virtual_account.model";
 
 
 export class VirtualAccountController {
-    public async getVirtualAccount(req:Request, res: Response) {
+    public async getVirtualAccount(req: Request, res: Response) {
         const virtualAccountRepository = AppDataSource.getRepository(VirtualAccountModel)
-    
+
         const virtualAccountData = await virtualAccountRepository.find()
-    
+
         try {
             res.status(200).send({
                 data: virtualAccountData,
@@ -19,7 +19,7 @@ export class VirtualAccountController {
                 error: err,
                 message: 'Something Went Wrong'
             })
-            
+
         }
     }
 }

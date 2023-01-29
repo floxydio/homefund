@@ -8,10 +8,15 @@ import { CategoryController } from '../controllers/category.controller';
 import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
+<<<<<<< HEAD
 import multer, { Multer } from 'multer';
 
 // import { storageUpload } from '../vendor/minio.client';
 
+=======
+// import { storageUpload } from '../vendor/minio.client';
+import helmet from "helmet"
+>>>>>>> 65c05ac (update config)
 
 
 
@@ -41,13 +46,9 @@ export default function Routes(app: Express) {
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
    app.use(bodyParser.json())
-   // app.use("/graphql", graphqlHTTP({
-   //    schema: schemaGraphQL,
-   //    graphiql: true
 
-   // }))
-   //
-
+   // CSRF
+   app.use(helmet.xssFilter())
 
    app.get("/", function (req, res) {
       return res.send("Not Found")

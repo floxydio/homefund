@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  web:
   minio:
     image: minio/minio
     ports:

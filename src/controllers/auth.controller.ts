@@ -9,8 +9,6 @@ import jwt from "jsonwebtoken"
 export class AuthController {
 
   public async SignIn(req: Request, res: Response) {
-    console.log(req.body.username)
-    console.log(req.body.password)
     const userRepository = AppDataSource.getRepository(UserModel)
 
     const resultData = await userRepository.find({
@@ -20,7 +18,7 @@ export class AuthController {
     });
 
     let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password!);
- 
+
     if (resultBcrypt) {
       let token = jwt.sign(
         {
@@ -48,18 +46,16 @@ export class AuthController {
 
   public async SignUp(req: Request, res: Response) {
 
-    const user = new UserModel() // -> Refactor : Tambah Ini
+    const user = new UserModel()
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const userRepository = AppDataSource.getRepository(UserModel)
 
-    // Refactor -> Dibuat Jadi seperti ini aja, better pake save dibanding create
     user.name = req.body.name
     user.password = hash
     user.username = req.body.username
     const resultData = userRepository.save(user);
-    // =======================
 
     return res.status(201).send({
       status: 201,
@@ -67,6 +63,23 @@ export class AuthController {
       message: "Succesfully Create Account",
     });
 
+  }
+
+  public async TokenCheck(req: Request, res: Response) {
+    const { token } = req.body
+    jwt.verify(token, "secret", function (err: any, decoded: any) {
+      if (err) {
+        return res.status(401).json({
+          status: 401,
+          message: "Token is Expired"
+        })
+      } else {
+        return res.status(200).json({
+          status: 200,
+          message: "Token is Authorized"
+        })
+      }
+    })
   }
 
   public async Logout(req: Request, res: Response) { }
