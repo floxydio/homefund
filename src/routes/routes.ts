@@ -10,17 +10,20 @@ import { VirtualAccountController } from '../controllers/virtual_account.control
 import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
 
+// import { storageUpload } from '../vendor/minio.client';
+
+
 
 
 export default function Routes(app: Express) {
 
-   const categoryStorage =  multer.diskStorage({
+   const categoryStorage = multer.diskStorage({
       destination: (req, file, cb) => {
          cb(null, 'storage/category')
       },
-      filename: (req, file,cb) => {
+      filename: (req, file, cb) => {
          cb(null, file.fieldname + Date.now())
-      } 
+      }
    })
 
    const uploadCategory = multer({
@@ -37,6 +40,7 @@ export default function Routes(app: Express) {
    // Middleware
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
+   app.use(bodyParser.json())
    // app.use("/graphql", graphqlHTTP({
    //    schema: schemaGraphQL,
    //    graphiql: true
@@ -49,10 +53,14 @@ export default function Routes(app: Express) {
       return res.send("Not Found")
    })
 
-   app.get("/api/category", uploadCategory.single('icon'),categoryController.getCategory)
+   app.get("/api/category", uploadCategory.single('icon'), categoryController.getCategory)
    app.get("/api/setting", settingController.getSetting)
    app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
    app.get("/api/news-slider", newsSliderController.getNewsSlider)
+
+   // app.post("/test-minio", storageUpload.single("upload"), (req, res) => {
+   //    return res.send("ABC")
+   // })
 
    app.post("/api/sign-up", authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)

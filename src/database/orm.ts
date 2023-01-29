@@ -17,14 +17,14 @@ export const AppDataSource = new DataSource({
   password: `${process.env.DB_PASSWORD}`,
   database: `${process.env.DB_NAME}`,
   synchronize: true, // False if already migration
-  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel, HistoryModel],
+  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel],
   logging: true,
 });
 
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Connected")
-  })
-  .catch((error) => console.log(error))
+// AppDataSource.initialize()
+//   .then(() => {
+//     console.log("Connected")
+//   })
+//   .catch((error) => console.log(error))
 

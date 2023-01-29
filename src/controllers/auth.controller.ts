@@ -9,6 +9,8 @@ import jwt from "jsonwebtoken"
 export class AuthController {
 
   public async SignIn(req: Request, res: Response) {
+    console.log(req.body.username)
+    console.log(req.body.password)
     const userRepository = AppDataSource.getRepository(UserModel)
 
     const resultData = await userRepository.find({
@@ -16,8 +18,9 @@ export class AuthController {
         username: req.body.username
       }
     });
-    let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password!);
 
+    let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password!);
+ 
     if (resultBcrypt) {
       let token = jwt.sign(
         {
