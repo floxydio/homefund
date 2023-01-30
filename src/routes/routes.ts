@@ -12,6 +12,8 @@ import multer, { Multer } from 'multer';
 import helmet from "helmet"
 import { InvestasiController } from '../controllers/investasi.controller';
 // import { storageUpload } from '../vendor/minio.client';
+// ...rest of the initial code omitted for simplicity.
+import { body } from 'express-validator';
 // import { storageUpload } from '../vendor/minio.client';
 
 
@@ -64,7 +66,7 @@ export default function Routes(app: Express) {
    //    return res.send("ABC")
    // })
 
-   app.post("/api/sign-up", authController.SignUp)
+   app.post("/api/sign-up",body('name').notEmpty(),body('password').isLength({ min: 8 }),body('username').notEmpty(), authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
    app.post("/api/investasi", investasiController.postInvestasi)
