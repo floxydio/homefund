@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity("investasi")
 
@@ -11,7 +11,7 @@ export class InvestasiModel {
 
     @Column()
     user_id?: number
-    
+
     @Column()
     price?: number
 

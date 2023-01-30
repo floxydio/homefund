@@ -51,6 +51,8 @@ export default function Routes(app: Express) {
 
    // }))
    //
+   app.use(helmet.xssFilter())
+
 
 
    app.get("/", function (req, res) {
@@ -66,7 +68,7 @@ export default function Routes(app: Express) {
    //    return res.send("ABC")
    // })
 
-   app.post("/api/sign-up",body('name').notEmpty(),body('password').isLength({ min: 8 }),body('username').notEmpty(), authController.SignUp)
+   app.post("/api/sign-up", body('name').notEmpty(), body('password').isLength({ min: 8 }), body('username').notEmpty(), authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
    app.post("/api/investasi", investasiController.postInvestasi)
