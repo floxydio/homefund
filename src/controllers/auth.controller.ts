@@ -10,7 +10,8 @@ export class AuthController {
 
   public async SignIn(req: Request, res: Response) {
     const userRepository = AppDataSource.getRepository(UserModel)
-
+    console.log(req.body.username)
+    console.log(req.body.password)
     const resultData = await userRepository.find({
       where: {
         username: req.body.username
