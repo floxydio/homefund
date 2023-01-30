@@ -9,14 +9,11 @@ import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
-<<<<<<< HEAD
-// import { storageUpload } from '../vendor/minio.client';
 import helmet from "helmet"
-=======
-
+import { InvestasiController } from '../controllers/investasi.controller';
+// import { storageUpload } from '../vendor/minio.client';
 // import { storageUpload } from '../vendor/minio.client';
 
->>>>>>> 700c39c6f483dd50eb99242942043cf33e244b77
 
 
 
@@ -40,7 +37,7 @@ export default function Routes(app: Express) {
    const settingController = new SettingController()
    const virtualAccountController = new VirtualAccountController()
    const newsSliderController = new NewsSliderController()
-
+   const investasiController = new InvestasiController()
 
    // Middleware
    app.use(bodyParser.urlencoded({ extended: true }))
@@ -70,6 +67,7 @@ export default function Routes(app: Express) {
    app.post("/api/sign-up", authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
+   app.post("/api/investasi", investasiController.postInvestasi)
 
 
 

@@ -7,6 +7,9 @@ export class InvestasiModel {
     id?: number
 
     @Column()
+    trx_id?: string
+
+    @Column()
     user_id?: number
     
     @Column()
