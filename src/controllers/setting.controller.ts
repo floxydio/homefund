@@ -4,7 +4,7 @@ import { AppDataSource } from "../database/orm";
 
 
 export class SettingController {
-    
+
     public async getSetting (req: Request, res: Response){
         const settingRepository = AppDataSource.getRepository(SettingModel)
 
