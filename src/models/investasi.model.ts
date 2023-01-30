@@ -6,7 +6,7 @@ export class InvestasiModel {
     @PrimaryGeneratedColumn()
     id?: number
 
-    @Column()
+    @Column({unique: true})
     trx_id?: string
 
     @Column()
