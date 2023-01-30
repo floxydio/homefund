@@ -27,7 +27,7 @@ export class AuthController {
             username: resultData[0].username,
           },
         },
-        "secret", { expiresIn: '1h' }
+        "secret", { expiresIn: '30s' }
       );
       return res.status(200).send({
         data: {
@@ -59,7 +59,6 @@ export class AuthController {
 
     return res.status(201).send({
       status: 201,
-      data: resultData,
       message: "Succesfully Create Account",
     });
 

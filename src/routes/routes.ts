@@ -9,8 +9,14 @@ import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
+<<<<<<< HEAD
 // import { storageUpload } from '../vendor/minio.client';
 import helmet from "helmet"
+=======
+
+// import { storageUpload } from '../vendor/minio.client';
+
+>>>>>>> 700c39c6f483dd50eb99242942043cf33e244b77
 
 
 
@@ -40,9 +46,13 @@ export default function Routes(app: Express) {
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
    app.use(bodyParser.json())
+   // app.use("/graphql", graphqlHTTP({
+   //    schema: schemaGraphQL,
+   //    graphiql: true
 
-   // CSRF
-   app.use(helmet.xssFilter())
+   // }))
+   //
+
 
    app.get("/", function (req, res) {
       return res.send("Not Found")
@@ -59,6 +69,7 @@ export default function Routes(app: Express) {
 
    app.post("/api/sign-up", authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
+   app.post("/api/check-user", authController.TokenCheck)
 
 
 
