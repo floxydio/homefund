@@ -8,15 +8,9 @@ import { CategoryController } from '../controllers/category.controller';
 import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
-<<<<<<< HEAD
 import multer, { Multer } from 'multer';
-
-// import { storageUpload } from '../vendor/minio.client';
-
-=======
 // import { storageUpload } from '../vendor/minio.client';
 import helmet from "helmet"
->>>>>>> 65c05ac (update config)
 
 
 

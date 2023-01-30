@@ -27,7 +27,7 @@ export class CategoryController {
         const category = new CategoryModel()
         const categoryRepository = AppDataSource.getRepository(CategoryModel)
 
-        category.category = req.body.name
+        category.category = req.body.category
         category.icon = req.file?.fieldname as string
         const resultData = categoryRepository.save(category)
 
