@@ -9,14 +9,10 @@ import { SettingController } from '../controllers/setting.controller';
 import { VirtualAccountController } from '../controllers/virtual_account.controller';
 import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
-<<<<<<< HEAD
-// import { storageUpload } from '../vendor/minio.client';
-import helmet from "helmet"
-=======
-
+// ...rest of the initial code omitted for simplicity.
+import { body } from 'express-validator';
 // import { storageUpload } from '../vendor/minio.client';
 
->>>>>>> 700c39c6f483dd50eb99242942043cf33e244b77
 
 
 
@@ -67,7 +63,7 @@ export default function Routes(app: Express) {
    //    return res.send("ABC")
    // })
 
-   app.post("/api/sign-up", authController.SignUp)
+   app.post("/api/sign-up",body('name').notEmpty(),body('password').isLength({ min: 8 }),body('username').notEmpty(), authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
 

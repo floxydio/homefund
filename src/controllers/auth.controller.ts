@@ -3,7 +3,7 @@ import { UserModel } from './../models/users.model';
 import { AppDataSource } from '../database/orm';
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken"
-
+import { validationResult } from 'express-validator'
 
 
 export class AuthController {
@@ -51,8 +51,11 @@ export class AuthController {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const userRepository = AppDataSource.getRepository(UserModel)
-
-    user.name = req.body.name
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    } else {
+      user.name = req.body.name
     user.password = hash
     user.username = req.body.username
     const resultData = userRepository.save(user);
@@ -61,7 +64,7 @@ export class AuthController {
       status: 201,
       message: "Succesfully Create Account",
     });
-
+  }
   }
 
   public async TokenCheck(req: Request, res: Response) {
