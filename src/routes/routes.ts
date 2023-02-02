@@ -11,9 +11,10 @@ import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
 import helmet from "helmet"
 import { InvestasiController } from '../controllers/investasi.controller';
-// import { storageUpload } from '../vendor/minio.client';
-// ...rest of the initial code omitted for simplicity.
 import { body } from 'express-validator';
+import { FAQController } from '../controllers/faq.controller';
+// ...rest of the initial code omitted for simplicity.
+// import { storageUpload } from '../vendor/minio.client';
 // import { storageUpload } from '../vendor/minio.client';
 
 
@@ -40,6 +41,7 @@ export default function Routes(app: Express) {
    const virtualAccountController = new VirtualAccountController()
    const newsSliderController = new NewsSliderController()
    const investasiController = new InvestasiController()
+   const faqControlller = new FAQController()
 
    // Middleware
    app.use(bodyParser.urlencoded({ extended: true }))
@@ -63,6 +65,7 @@ export default function Routes(app: Express) {
    app.get("/api/setting", settingController.getSetting)
    app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
    app.get("/api/news-slider", newsSliderController.getNewsSlider)
+   app.get("/api/faq", faqControlller.getFAQ)
 
    // app.post("/test-minio", storageUpload.single("upload"), (req, res) => {
    //    return res.send("ABC")
