@@ -15,7 +15,7 @@ import { InvestasiController } from '../controllers/investasi.controller';
 // ...rest of the initial code omitted for simplicity.
 import { body } from 'express-validator';
 // import { storageUpload } from '../vendor/minio.client';
-
+import { BusinessController } from '../controllers/business.controller';
 
 
 
@@ -40,7 +40,7 @@ export default function Routes(app: Express) {
    const virtualAccountController = new VirtualAccountController()
    const newsSliderController = new NewsSliderController()
    const investasiController = new InvestasiController()
-
+   const businessController = new BusinessController()
    // Middleware
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
@@ -63,7 +63,7 @@ export default function Routes(app: Express) {
    app.get("/api/setting", settingController.getSetting)
    app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
    app.get("/api/news-slider", newsSliderController.getNewsSlider)
-
+   app.get("/api/business", businessController.getBusiness)
    // app.post("/test-minio", storageUpload.single("upload"), (req, res) => {
    //    return res.send("ABC")
    // })
@@ -73,16 +73,16 @@ export default function Routes(app: Express) {
       body('password').isLength({ min: 8 }),
       body('username').notEmpty(),
       authController.SignUp)
-   app.post("/api/sign-up", body('name').notEmpty(), body('password').isLength({ min: 8 }), body('username').notEmpty(), authController.SignUp)
+   app.post("/api/sign-up", body('name').notEmpty(), 
+      body('password').isLength({ min: 8 }), 
+      body('username').notEmpty(), authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
    app.post("/api/investasi", 
       body("user_id").notEmpty(),
       body("price").isLength({min: 7}),
       body("item_id").notEmpty(),
-      body("amount").notEmpty(),  
-      investasiController.postInvestasi)
-
-
+      body("amount").notEmpty(), investasiController.postInvestasi)
+ 
 
 }
