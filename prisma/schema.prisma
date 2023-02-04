@@ -14,6 +14,8 @@ model Users {
   investment_amount Int
   status_validasi   Int
   user_agent        String
+  banned            Int    @default(0)
+  email             String @unique
 }
 
 model Faq {

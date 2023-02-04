@@ -30,7 +30,7 @@ export class AuthController {
           },
         },
         "secret", { expiresIn: '30s' }
-        ); 
+        );
       userRepository.createQueryBuilder().update(UserModel).set({
         user_agent: req.headers['user-agent']
       }).where("username = :username", {username: req.body.username}).execute()
