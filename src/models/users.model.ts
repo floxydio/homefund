@@ -18,5 +18,13 @@ export class UserModel extends BaseEntity {
    @Column({ default: "profile.png" })
    profile_image?: string
 
+   @Column({default: 0})
+   invesment_amount?: number
+
+   @Column({default: 0})
+   status_validasi?: number
+
+   @Column()
+   user_agent?: string
 }
 

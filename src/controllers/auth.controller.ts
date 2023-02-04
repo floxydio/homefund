@@ -18,6 +18,7 @@ export class AuthController {
       }
     });
 
+
     let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password!);
 
     if (resultBcrypt) {
@@ -29,7 +30,10 @@ export class AuthController {
           },
         },
         "secret", { expiresIn: '30s' }
-      );
+        ); 
+      userRepository.createQueryBuilder().update(UserModel).set({
+        user_agent: req.headers['user-agent']
+      }).where("username = :username", {username: req.body.username}).execute()
       return res.status(200).send({
         data: {
           id: resultData[0].id,
