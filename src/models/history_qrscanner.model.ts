@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, Timestamp } from "typeorm";
 
 @Entity("history_qrscanner")
-export class HistoryModel{
+export class HistoryModel {
   @PrimaryGeneratedColumn()
   id?: number
 
@@ -12,5 +12,5 @@ export class HistoryModel{
   result?: string
 
   @Column()
-  createdate?: Date
+  createdAt?: Date
 }

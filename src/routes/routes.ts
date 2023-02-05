@@ -17,6 +17,7 @@ import { body } from 'express-validator';
 // import { storageUpload } from '../vendor/minio.client';
 // import { storageUpload } from '../vendor/minio.client';
 import { BusinessController } from '../controllers/business.controller';
+import path from 'path';
 
 
 
@@ -88,6 +89,11 @@ export default function Routes(app: Express) {
    //    body("price").isLength({ min: 7 }),
    //    body("item_id").notEmpty(),
    //    body("amount").notEmpty(), investasiController.postInvestasi)
+
+   app.get("/verify/:params", function (req, res) {
+      return res.sendFile(path.join(__dirname + '../views/verify.html'))
+
+   })
 
 
 }

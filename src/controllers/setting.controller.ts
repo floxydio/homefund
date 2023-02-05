@@ -7,6 +7,7 @@ export class SettingController {
     public async getSetting(req: Request, res: Response) {
         const prisma = new PrismaClient()
         const settingRepository = await prisma.setting.findFirst()
+
         try {
             res.status(200).send({
                 status: 200,

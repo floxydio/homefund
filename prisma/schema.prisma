@@ -47,3 +47,34 @@ model setting {
   fee                Int
   version_app        Int
 }
+
+model business {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  image String @db.VarChar(255)
+}
+
+model faq {
+  id       Int    @id @default(autoincrement())
+  question String @db.VarChar(255)
+  answer   String @db.VarChar(255)
+}
+
+model history_qrscanner {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  result    String   @db.VarChar(255)
+  createdAt DateTime @db.Date
+}
+
+model investasi {
+  id        Int      @id @default(autoincrement())
+  trx_id    Int
+  user_id   Int
+  price     Int
+  status    Int
+  item_id   Int
+  amount    Int
+  createdAt DateTime @db.Date
+  updatedAt DateTime @db.Date
+}
