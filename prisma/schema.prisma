@@ -1,58 +1,48 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-}
-
-model Users {
-  id                Int    @id @default(autoincrement())
-  name              String
-  username          String @unique
-  password          String
-  profile_image     String @default("profile.png")
-  investment_amount Int
-  status_validasi   Int
-  user_agent        String
-  banned            Int    @default(0)
-  email             String @unique
-}
-
-model Faq {
-  id       Int    @id @default(autoincrement())
-  question String
-  answer   String
-}
-
-model Category {
-  id       Int    @id @default(autoincrement())
-  category String
-  icon     String
-}
-
-model History_qrScanner {
-  id         Int      @id @default(autoincrement())
-  userid     Int
-  result     String
-  createdate DateTime
-}
-
-model News_Slider {
-  id     Int    @id @default(autoincrement())
-  name   String
-  detail String
-  image  String
-  status Int
-}
-
-model Setting {
-  maintenance_status Int    @id @default(autoincrement())
-  maintenance_note   String
-  fee                Int
-  version_app        Int
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model users {
+  id               Int    @id @default(autoincrement())
+  name             String @db.VarChar(255)
+  username         String @unique(map: "IDX_fe0bb3f6520ee0469504521e71") @db.VarChar(255)
+  password         String @db.VarChar(255)
+  profile_image    String @default("profile.png") @db.VarChar(255)
+  invesment_amount Int    @default(0)
+  status_validasi  Int    @default(0)
+  user_agent       String @db.VarChar(255)
+}
+
+model virtual_account {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(255)
+  icon   String @db.VarChar(255)
+  vat    Int
+  status Int
+}
+
+model category {
+  id       Int    @id @default(autoincrement())
+  category String @db.VarChar(255)
+  icon     String @db.VarChar(255)
+}
+
+model news_slider {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(255)
+  detail String @db.VarChar(255)
+  image  String @db.VarChar(255)
+  status Int
+}
+
+model setting {
+  maintenance_status Int    @id @default(autoincrement())
+  maintenance_note   String @db.VarChar(255)
+  fee                Int
+  version_app        Int
 }
