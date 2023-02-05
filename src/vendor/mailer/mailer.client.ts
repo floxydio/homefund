@@ -7,11 +7,12 @@ export async function MailService (){
 
     //Create Connection
     let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email", //Change When SMTP Host Ready
+        host: "smtp.gmail.com", //Change When SMTP Host Ready
         port: 587, //Change When SMTP Port Ready
+        secure: false,
         auth: {
-            user: testAccount.user,
-            pass: testAccount.pass,
+            user: "kontrakdanadev@gmail.com",
+            pass: "lewuwfnmumrcogjd",
         }
     })
 

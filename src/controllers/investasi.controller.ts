@@ -1,26 +1,36 @@
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { AppDataSource } from "../database/orm";
-import { InvestasiModel } from "../models/investasi.model";
+import { validationResult } from "express-validator";
 
 export class InvestasiController {
     public async postInvestasi(req: Request, res: Response){
-        const investasi = new InvestasiModel()
-        const investasiRepository = AppDataSource.getRepository(InvestasiModel)
+        const prisma = new PrismaClient();
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        }else{ 
+            await prisma.investasi.create({
+                data: {
+                    price: req.body.price,
+                    status: Number(req.body.status),
+                    item_id: req.body.item_id,
+                    amount: req.body.amount,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
 
-        investasi.price = req.body.price
-        investasi.status = req.body.status
-        investasi.item_id = req.body.item_id
-        investasi.amount = req.body.amount
-        investasi.createdAt = new Date()
-        investasi.updatedAt = new Date()
-
-        const resultData = investasiRepository.save(investasi)
+                }
+            })
+        }
 
         return res.status(201).send({
             status: 201,
-            data: resultData,
             message: "Succefully Created Investasi"
         })
 
     }
 }
+
+
+

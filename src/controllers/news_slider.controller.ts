@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { AppDataSource } from "../database/orm";
 import { NewsSliderModel } from "../models/news_slider.model";
@@ -5,14 +6,14 @@ import { NewsSliderModel } from "../models/news_slider.model";
 export class NewsSliderController {
 
     public async getNewsSlider (req: Request, res: Response){
-        const newsSliderRepository = AppDataSource.getRepository(NewsSliderModel)
+     const prisma = new PrismaClient()
+     let newsSliderRepository = await prisma.news_slider.findMany()
 
-        const newsSliderData = await newsSliderRepository.find()
 
         try {
             res.status(200).send({
                 status: 200,
-                data: newsSliderData,
+                data: newsSliderRepository,
                 message: "Successfully Get List News"
             })
         } catch (err) {

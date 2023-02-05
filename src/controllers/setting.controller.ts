@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { SettingModel } from "../models/setting.model";
-import { AppDataSource } from "../database/orm";
 import { PrismaClient } from "@prisma/client"
 
 
