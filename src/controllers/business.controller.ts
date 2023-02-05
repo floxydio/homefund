@@ -1,12 +1,14 @@
 import { Request, Response } from "express"
 import { AppDataSource } from "../database/orm";
 import { BusinessModel } from "../models/business.model";
+import { PrismaClient } from "@prisma/client";
+import { validationResult } from "express-validator";
 
 export class BusinessController {
     public async getBusiness(req: Request, res:Response){
         const businessRepository = AppDataSource.getRepository(BusinessModel)
-        
-        const businessData = await businessRepository.find()
+        const prisma = new PrismaClient()
+        const businessData = await prisma.business.findMany()
 
         try{
             res.status(200).send({
@@ -22,17 +24,24 @@ export class BusinessController {
     }
 
     public async postBusiness (req: Request, res: Response){
-        const business = new BusinessModel()
-        const businessRepository = AppDataSource.getRepository(BusinessModel)
+        const prisma = new PrismaClient();
+        const errors = validationResult(req);
 
-        business.name = req.body.name
-        business.image = req.file?.fieldname as string
-        const resultData = businessRepository.save(business)
-
-        return res.status(201).send({
-            status:201,
-            data: resultData,
-            message: "Succesfully Create Business"
+        if (!errors.isEmpty()){
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        } else {
+            await prisma.business.create({
+                data: {
+                    name: req.body.name,
+                    image: req.body.image
+                }
+            })
+        }
+        return res.send(201).send({
+            status: 201,
+            message: 'Succesfully Create Business'
         })
     }
 }

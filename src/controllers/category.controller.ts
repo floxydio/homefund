@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../database/orm";
 import { CategoryModel } from "../models/category.model";
-
+import { PrismaClient } from "@prisma/client";
+import { validationResult } from "express-validator";
 
 export class CategoryController {
     public async  getCategory(req: Request, res: Response){
         const categoryRepository = AppDataSource.getRepository(CategoryModel)
-        
-        const categoryData = await categoryRepository.find()
+        const prisma = new PrismaClient()
+        const categoryData = await prisma.category.findMany()
     
         try {
             res.status(200).send({
@@ -24,17 +25,24 @@ export class CategoryController {
     }
 
     public async postCategory(req: Request, res: Response){
-        const category = new CategoryModel()
-        const categoryRepository = AppDataSource.getRepository(CategoryModel)
+        const prisma = new PrismaClient();
+        const errors = validationResult(req);
 
-        category.category = req.body.category
-        category.icon = req.file?.fieldname as string
-        const resultData = categoryRepository.save(category)
-
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        } else {
+            await prisma.category.create({
+                data: {
+                    category: req.body.category,
+                    icon:   req.body.icon
+                }
+            })
+        }
         return res.status(201).send({
             status: 201,
-            data: resultData,
-            message: "Succefully Create Category"
+            message: "Succesfully Create Category"
         })
-    }
+    } 
 }
