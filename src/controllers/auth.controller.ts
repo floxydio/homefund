@@ -63,7 +63,7 @@ export class AuthController {
           user_agent: String(""),
           username: req.body.username,
         }
-      }).then((value) => {
+      }).then(() => {
         let tokenSignUp = jwt.sign({
           data: {
             "email": req.body.email
@@ -260,10 +260,9 @@ export class AuthController {
           status: 201,
           message: "Succesfully Create Account",
         });
-      }).catch((reason) => {
+      }).catch(() => {
         return res.status(400).send({
           status: 400,
-          errMessage: reason,
           message: "Cannot Create Account",
         });
       })

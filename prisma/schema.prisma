@@ -69,7 +69,7 @@ model history_qrscanner {
 
 model investasi {
   id        Int      @id @default(autoincrement())
-  trx_id    Int
+  trx_id    String   @db.VarChar(255)
   user_id   Int
   price     Int
   status    Int
