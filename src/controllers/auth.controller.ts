@@ -1,26 +1,16 @@
-import bcrypt, { hash } from 'bcrypt';
-import { UserModel } from './../models/users.model';
-import { AppDataSource } from '../database/orm';
+import bcrypt from 'bcrypt';
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken"
 import { validationResult } from 'express-validator'
-
+import { PrismaClient } from '@prisma/client'
 
 export class AuthController {
 
   public async SignIn(req: Request, res: Response) {
-    const userRepository = AppDataSource.getRepository(UserModel)
-    console.log(req.body.username)
-    console.log(req.body.password)
-    const resultData = await userRepository.find({
-      where: {
-        username: req.body.username
-      }
-    });
+    const prisma = new PrismaClient()
+    const resultData = await prisma.users.findMany()
 
-
-    let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password!);
-
+    let resultBcrypt = bcrypt.compareSync(req.body.password, resultData[0].password);
     if (resultBcrypt) {
       let token = jwt.sign(
         {
@@ -30,10 +20,15 @@ export class AuthController {
           },
         },
         "secret", { expiresIn: '30s' }
-        );
-      userRepository.createQueryBuilder().update(UserModel).set({
-        user_agent: req.headers['user-agent']
-      }).where("username = :username", {username: req.body.username}).execute()
+      );
+      await prisma.users.update({
+        where: {
+          id: Number(resultData[0].id)
+        },
+        data: {
+          user_agent: String(req.headers["user-agent"])
+        }
+      })
       return res.status(200).send({
         data: {
           id: resultData[0].id,
@@ -50,26 +45,30 @@ export class AuthController {
   }
 
   public async SignUp(req: Request, res: Response) {
-
-    const user = new UserModel()
+    const prisma = new PrismaClient()
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    const userRepository = AppDataSource.getRepository(UserModel)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     } else {
-      user.name = req.body.name
-    user.password = hash
-    user.username = req.body.username
-    const resultData = userRepository.save(user);
+      await prisma.users.create({
+        data: {
+          name: req.body.name,
+          password: hash,
+          invesment_amount: req.body.invesment_amount,
+          status_validasi: Number(req.body.status_validasi),
+          user_agent: String(""),
+          username: req.body.username,
+        }
+      })
 
-    return res.status(201).send({
-      status: 201,
-      message: "Succesfully Create Account",
-    });
-  }
+      return res.status(201).send({
+        status: 201,
+        message: "Succesfully Create Account",
+      });
+    }
   }
 
   public async TokenCheck(req: Request, res: Response) {
