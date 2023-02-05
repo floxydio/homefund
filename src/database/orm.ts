@@ -23,8 +23,9 @@ export const AppDataSource = new DataSource({
 });
 
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Connected")
-  })
-  .catch((error) => console.log(error))
+
+// AppDataSource.initialize()
+//   .then(() => {
+//     console.log("Connected")
+//   })
+//   .catch((error) => console.log(error))
