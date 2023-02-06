@@ -58,6 +58,7 @@ export class AuthController {
         data: {
           name: req.body.name,
           password: hash,
+          phone_number: req.body.phone,
           invesment_amount: req.body.invesment_amount,
           email: req.body.email,
           status_validasi: Number(0),
