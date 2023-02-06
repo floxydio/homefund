@@ -1,18 +1,16 @@
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { AppDataSource } from "../database/orm";
-import { FAQModel } from "../models/faq.model";
 
 export class FAQController {
-     
-    public async getFAQ (req: Request, res: Response){
-        const FAQRepository = AppDataSource.getRepository(FAQModel)
 
-        const faqData = await FAQRepository.find()
+    public async getFAQ (req: Request, res: Response){
+        const prisma = new PrismaClient()
+        const faqRepository = await prisma.faq.findMany()
 
         try {
             return res.status(200).send({
                 status: 200,
-                data: faqData,
+                data: faqRepository,
                 message: "Successfully Get FAQ Data"
             })
         } catch (err) {

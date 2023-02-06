@@ -6,6 +6,7 @@ import { CategoryModel } from "../models/category.model";
 import { VirtualAccountModel } from "../models/virtual_account.model";
 import { SettingModel } from "../models/setting.model";
 import { HistoryModel } from "../models/history_qrscanner.model";
+import { BusinessController } from "../controllers/business.controller";
 
 dotenv.config()
 
@@ -17,14 +18,14 @@ export const AppDataSource = new DataSource({
   password: `${process.env.DB_PASSWORD}`,
   database: `${process.env.DB_NAME}`,
   synchronize: true, // False if already migration
-  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel],
+  entities: [UserModel, NewsSliderModel, CategoryModel, VirtualAccountModel, SettingModel, BusinessController],
   logging: true,
 });
 
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Connected")
-  })
-  .catch((error) => console.log(error))
 
+// AppDataSource.initialize()
+//   .then(() => {
+//     console.log("Connected")
+//   })
+//   .catch((error) => console.log(error))

@@ -1,22 +1,81 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-}
-
-model Users {
-  id                Int    @id @default(autoincrement())
-  name              String
-  username          String @unique
-  password          String
-  profile_image     String @default("profile.png")
-  investment_amount Int
-  status_validasi   Int
-  user_agent        String
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model users {
+  id               Int    @id @default(autoincrement())
+  name             String @db.VarChar(255)
+  username         String @unique(map: "IDX_fe0bb3f6520ee0469504521e71") @db.VarChar(255)
+  email            String @db.VarChar(255)
+  password         String @db.VarChar(255)
+  phone_number     Int
+  profile_image    String @default("profile.png") @db.VarChar(255)
+  invesment_amount Int    @default(0)
+  status_validasi  Int    @default(0)
+  user_agent       String @db.VarChar(255)
+}
+
+model virtual_account {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(255)
+  icon   String @db.VarChar(255)
+  vat    Int
+  status Int
+}
+
+model category {
+  id       Int    @id @default(autoincrement())
+  category String @db.VarChar(255)
+  icon     String @db.VarChar(255)
+}
+
+model news_slider {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(255)
+  detail String @db.VarChar(255)
+  image  String @db.VarChar(255)
+  status Int
+}
+
+model setting {
+  maintenance_status Int    @id @default(autoincrement())
+  maintenance_note   String @db.VarChar(255)
+  fee                Int
+  version_app        Int
+}
+
+model business {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(255)
+  image String @db.VarChar(255)
+}
+
+model faq {
+  id       Int    @id @default(autoincrement())
+  question String @db.VarChar(255)
+  answer   String @db.VarChar(255)
+}
+
+model history_qrscanner {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  result    String   @db.VarChar(255)
+  createdAt DateTime @db.Date
+}
+
+model investasi {
+  id        Int      @id @default(autoincrement())
+  trx_id    String   @db.VarChar(255)
+  user_id   Int
+  price     Int
+  status    Int
+  item_id   Int
+  amount    Int
+  createdAt DateTime @db.Date
+  updatedAt DateTime @db.Date
 }

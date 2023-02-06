@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from "cors";
 import { graphqlHTTP } from "express-graphql"
@@ -10,13 +10,14 @@ import { VirtualAccountController } from '../controllers/virtual_account.control
 import { NewsSliderController } from '../controllers/news_slider.controller';
 import multer, { Multer } from 'multer';
 import helmet from "helmet"
-import { InvestasiController } from '../controllers/investasi.controller';
+// import { InvestasiController } from '../controllers/investasi.controller';
 import { body } from 'express-validator';
-import { FAQController } from '../controllers/faq.controller';
+// import { FAQController } from '../controllers/faq.controller';
 // ...rest of the initial code omitted for simplicity.
 // import { storageUpload } from '../vendor/minio.client';
 // import { storageUpload } from '../vendor/minio.client';
-
+import { BusinessController } from '../controllers/business.controller';
+import path from 'path';
 
 
 
@@ -40,13 +41,15 @@ export default function Routes(app: Express) {
    const settingController = new SettingController()
    const virtualAccountController = new VirtualAccountController()
    const newsSliderController = new NewsSliderController()
-   const investasiController = new InvestasiController()
-   const faqControlller = new FAQController()
+   // const investasiController = new InvestasiController()
+   const businessController = new BusinessController()
+   // const faqControlller = new FAQController()
 
    // Middleware
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
    app.use(bodyParser.json())
+
    // app.use("/graphql", graphqlHTTP({
    //    schema: schemaGraphQL,
    //    graphiql: true
@@ -65,7 +68,8 @@ export default function Routes(app: Express) {
    app.get("/api/setting", settingController.getSetting)
    app.get("/api/virtual-account", virtualAccountController.getVirtualAccount)
    app.get("/api/news-slider", newsSliderController.getNewsSlider)
-   app.get("/api/faq", faqControlller.getFAQ)
+   app.get("/api/business", businessController.getBusiness)
+   // app.get("/api/faq", faqControlller.getFAQ)
 
    // app.post("/test-minio", storageUpload.single("upload"), (req, res) => {
    //    return res.send("ABC")
@@ -76,16 +80,20 @@ export default function Routes(app: Express) {
       body('password').isLength({ min: 8 }),
       body('username').notEmpty(),
       authController.SignUp)
-   app.post("/api/sign-up", body('name').notEmpty(), body('password').isLength({ min: 8 }), body('username').notEmpty(), authController.SignUp)
+   app.post("/api/sign-up", body('name').notEmpty(),
+      body('password').isLength({ min: 8 }),
+      body('username').notEmpty(), authController.SignUp)
    app.post("/api/sign-in", authController.SignIn)
    app.post("/api/check-user", authController.TokenCheck)
-   app.post("/api/investasi", 
-      body("user_id").notEmpty(),
-      body("price").isLength({min: 7}),
-      body("item_id").notEmpty(),
-      body("amount").notEmpty(),  
-      investasiController.postInvestasi)
+   // app.post("/api/investasi",
+   //    body("user_id").notEmpty(),
+   //    body("price").isLength({ min: 7 }),
+   //    body("item_id").notEmpty(),
+   //    body("amount").notEmpty(), investasiController.postInvestasi)
 
+   app.get("/verify/:params", authController.Verification)
+
+   // app.get("/jwtverif", authController.Verification)
 
 
 }

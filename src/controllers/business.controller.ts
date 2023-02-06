@@ -1,19 +1,19 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"
 import { AppDataSource } from "../database/orm";
-import { CategoryModel } from "../models/category.model";
+import { BusinessModel } from "../models/business.model";
 import { PrismaClient } from "@prisma/client";
 import { validationResult } from "express-validator";
 
-export class CategoryController {
-    public async  getCategory(req: Request, res: Response){
-        const categoryRepository = AppDataSource.getRepository(CategoryModel)
+export class BusinessController {
+    public async getBusiness(req: Request, res: Response) {
+        // const businessRepository = AppDataSource.getRepository(BusinessModel)
         const prisma = new PrismaClient()
-        const categoryData = await prisma.category.findMany()
-    
+        const businessData = await prisma.business.findMany()
+
         try {
             res.status(200).send({
-                data: categoryData,
-                message: 'Succefully Get List Category'
+                data: businessData,
+                message: 'Susccesfully Get Business Data'
             })
         } catch (err) {
             res.status(400).send({
@@ -21,10 +21,9 @@ export class CategoryController {
                 message: 'Something Went Wrong'
             })
         }
-    
     }
 
-    public async postCategory(req: Request, res: Response){
+    public async postBusiness(req: Request, res: Response) {
         const prisma = new PrismaClient();
         const errors = validationResult(req);
 
@@ -33,16 +32,16 @@ export class CategoryController {
                 errors: errors.array()
             })
         } else {
-            await prisma.category.create({
+            await prisma.business.create({
                 data: {
-                    category: req.body.category,
-                    icon:   req.body.icon
+                    name: req.body.name,
+                    image: req.body.image
                 }
             })
         }
-        return res.status(201).send({
+        return res.send(201).send({
             status: 201,
-            message: "Succesfully Create Category"
+            message: 'Succesfully Create Business'
         })
-    } 
+    }
 }
