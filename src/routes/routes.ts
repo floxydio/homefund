@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from "cors";
 import { graphqlHTTP } from "express-graphql"
@@ -49,6 +49,7 @@ export default function Routes(app: Express) {
    app.use(bodyParser.urlencoded({ extended: true }))
    app.use(cors())
    app.use(bodyParser.json())
+
    // app.use("/graphql", graphqlHTTP({
    //    schema: schemaGraphQL,
    //    graphiql: true
@@ -90,10 +91,9 @@ export default function Routes(app: Express) {
    //    body("item_id").notEmpty(),
    //    body("amount").notEmpty(), investasiController.postInvestasi)
 
-   app.get("/verify/:params", function (req, res) {
-      return res.sendFile(path.join(__dirname + '../views/verify.html'))
+   app.get("/verify/:params", authController.Verification)
 
-   })
+   // app.get("/jwtverif", authController.Verification)
 
 
 }
