@@ -5,29 +5,29 @@ import { PrismaClient } from "@prisma/client";
 import { validationResult } from "express-validator";
 
 export class BusinessController {
-    public async getBusiness(req: Request, res:Response){
-        const businessRepository = AppDataSource.getRepository(BusinessModel)
+    public async getBusiness(req: Request, res: Response) {
+        // const businessRepository = AppDataSource.getRepository(BusinessModel)
         const prisma = new PrismaClient()
         const businessData = await prisma.business.findMany()
 
-        try{
+        try {
             res.status(200).send({
                 data: businessData,
                 message: 'Susccesfully Get Business Data'
             })
         } catch (err) {
             res.status(400).send({
-                error:err,
+                error: err,
                 message: 'Something Went Wrong'
             })
         }
     }
 
-    public async postBusiness (req: Request, res: Response){
+    public async postBusiness(req: Request, res: Response) {
         const prisma = new PrismaClient();
         const errors = validationResult(req);
 
-        if (!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             return res.status(400).json({
                 errors: errors.array()
             })

@@ -13,6 +13,7 @@ model users {
   username         String @unique(map: "IDX_fe0bb3f6520ee0469504521e71") @db.VarChar(255)
   email            String @db.VarChar(255)
   password         String @db.VarChar(255)
+  phone_number     Int
   profile_image    String @default("profile.png") @db.VarChar(255)
   invesment_amount Int    @default(0)
   status_validasi  Int    @default(0)
